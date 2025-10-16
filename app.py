@@ -13,17 +13,16 @@ if access == '123by':
     impostos_gerais = st.number_input('Impostos Gerais:')
     custo_medio = st.number_input('Custom Médio:')
 
-    resultado = None
-    if dentro_fora_sp == "Sim":
-        x = 1
-        resultado = (preco - desconto) * x
-    else:
-        x = 0.5
-        resultado = (preco - desconto) * x
+    if st.button('Calcular'):
+        resultado = None
+        if dentro_fora_sp == "Sim":
+            x = 1
+            resultado = (preco - desconto) * x
+        else:
+            x = 0.5
+            resultado = (preco - desconto) * x
+        resultado_final = resultado - impostos_gerais - custo_medio
 
-    resultado_final = resultado - impostos_gerais - custo_medio
-
-    if st.button('vai'):
         st.text(f'Produto: {nome_produto}')
         st.text(f'Preço: {preco}')
         st.text(f'Desconto: {preco - desconto}')
