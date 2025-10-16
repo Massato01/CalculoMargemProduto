@@ -3,38 +3,42 @@ import streamlit as st
 st.set_page_config(page_title="Calculadora de Margem", layout="wide")
 st.title("📊 Calculadora de Margem")
 
-nome_produto = st.text_input('Nome do produto:')
-preco = st.number_input('Preço de venda:')
-desconto = st.number_input('Desconto:')
-dentro_fora_sp = st.radio("Venda em São Paulo?", ("Sim", "Não"))
-impostos_gerais = st.number_input('Impostos Gerais:')
-custo_medio = st.number_input('Custom Médio:')
+access = st.text_input("Access Token", type="password")
+if access == '123by':
+    st.success('SUCESSO!')
+    nome_produto = st.text_input('Nome do produto:')
+    preco = st.number_input('Preço de venda:')
+    desconto = st.number_input('Desconto:')
+    dentro_fora_sp = st.radio("Venda em São Paulo?", ("Sim", "Não"))
+    impostos_gerais = st.number_input('Impostos Gerais:')
+    custo_medio = st.number_input('Custom Médio:')
 
-resultado = None
-if dentro_fora_sp == "Sim":
-    x = 1
-    resultado = (preco - desconto) * x
+    resultado = None
+    if dentro_fora_sp == "Sim":
+        x = 1
+        resultado = (preco - desconto) * x
+    else:
+        x = 0.5
+        resultado = (preco - desconto) * x
+
+    resultado_final = resultado - impostos_gerais - custo_medio
+
+    if st.button('vai'):
+        st.text(f'Produto: {nome_produto}')
+        st.text(f'Preço: {preco}')
+        st.text(f'Desconto: {preco - desconto}')
+        st.text(f'Valor Pós Cálculo Venda: {resultado}')
+        st.text(f'Valor de Impostsos: {impostos_gerais}')
+        st.text(f'Custo Médio: {custo_medio}')
+        st.subheader(f'Lucro Bruto: {resultado_final}')
+
+    if st.button('ENVIAR PROPOSTA'):
+        st.subheader('PROPOSTA ENVIADA')
 else:
-    x = 0.5
-    resultado = (preco - desconto) * x
+    st.warning('SENHA INVÁLIDA!')
 
-resultado_final = resultado - impostos_gerais - custo_medio
-
-if st.button('vai'):
-    st.text(f'Produto: {nome_produto}')
-    st.text(f'Preço: {preco}')
-    st.text(f'Desconto: {preco - desconto}')
-    st.text(f'Valor Pós Cálculo Venda: {resultado}')
-    st.text(f'Valor de Impostsos: {impostos_gerais}')
-    st.text(f'Custo Médio: {custo_medio}')
-    st.subheader(f'Lucro Bruto: {resultado_final}')
-
-if st.button('vai'):
-    st.subheader('PROPOSTA ENVIADA')
 '''
 Fontes externas: CMV, Preço de venda (site)
-
-
 '''
 
 
